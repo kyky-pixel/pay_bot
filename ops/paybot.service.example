@@ -1,0 +1,17 @@
+[Unit]
+Description=Telegram PayBot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/services/paybot
+ExecStart=/opt/services/paybot/venv/bin/python -m app.main
+Restart=always
+RestartSec=5
+Environment=GSHEET_ID=PUT_SPREADSHEET_ID_HERE
+Environment=ADMINS=PUT_ADMIN_IDS_COMMA_SEPARATED
+
+[Install]
+WantedBy=multi-user.target
