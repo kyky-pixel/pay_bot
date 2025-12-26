@@ -273,6 +273,11 @@ async def main():
         await state.set_state(AdminDecision.comment)
         await state.update_data(pending={"req_id": req_id, "status": status})
         await cb.answer()
+        # Блокируем мисклики: пока ждём комментарий решения, убираем кнопки с карточки
+        try:
+            await cb.message.edit_reply_markup(reply_markup=None)
+        except Exception:
+            pass
         await cb.message.answer(
             f"Решение по заявке №{req_id}. Комментарий (необязательно):\n"
             f"— отправь текст\n"
