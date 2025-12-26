@@ -1,0 +1,6 @@
+venv/
+data/
+secrets/
+__pycache__/
+*.pyc
+.GSHEET_ID

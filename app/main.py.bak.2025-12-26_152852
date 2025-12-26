@@ -1,0 +1,23 @@
+import asyncio
+from aiogram import Bot, Dispatcher
+from aiogram.types import Message
+from aiogram.filters import Command
+
+TOKEN_FILE = "/opt/services/paybot/secrets/telegram_token.txt"
+
+def read_token():
+    with open(TOKEN_FILE, "r") as f:
+        return f.read().strip()
+
+async def main():
+    bot = Bot(token=read_token())
+    dp = Dispatcher()
+
+    @dp.message(Command("start"))
+    async def start(msg: Message):
+        await msg.answer("Paybot запущен. Всё работает.")
+
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())
